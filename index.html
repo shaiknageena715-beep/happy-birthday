@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Hemuuu! ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient floating particles -->
+  <div id="ambient-particles" aria-hidden="true"></div>
+
+  <!-- Music (auto-plays after candles blown) -->
+  <audio id="birthdayAudio">
+    <source src="sub_clair_happy_birthday.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Floating music control (visible after song starts) -->
+  <div class="music-bar" id="musicBar">
+    <span class="music-bar-note">🎵</span>
+    <span class="music-bar-title">Happy Birthday, Hemuuu ❤️</span>
+    <button class="music-bar-btn" id="playPauseBtn" title="Play/Pause">
+      <svg id="playIcon"  viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="music-bar-btn" id="muteBtn" title="Mute/Unmute">
+      <svg id="volIcon"  viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      <svg id="muteIcon" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="display:none"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+    </button>
+  </div>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 1 – BIRTHDAY CAKE                                      -->
+  <!-- =========================================================== -->
+  <section id="page-cake" class="page active">
+    <div class="scroll-wrap">
+      <div class="page-content">
+
+        <div class="cake-intro-text">
+          <p class="greeting-line">Hey Hemuuu! ❤️</p>
+          <p class="greeting-sub">Someone has a little surprise waiting for you...</p>
+        </div>
+
+        <div class="cake-wrapper" id="cakeWrapper">
+          <!-- Candles -->
+          <div class="cake-candles" id="cakeCandles">
+            <div class="candle" data-index="0"><div class="candle-body"></div><div class="flame-wrap"><div class="flame"></div><div class="flame-core"></div></div></div>
+            <div class="candle" data-index="1"><div class="candle-body"></div><div class="flame-wrap"><div class="flame"></div><div class="flame-core"></div></div></div>
+            <div class="candle" data-index="2"><div class="candle-body"></div><div class="flame-wrap"><div class="flame"></div><div class="flame-core"></div></div></div>
+            <div class="candle" data-index="3"><div class="candle-body"></div><div class="flame-wrap"><div class="flame"></div><div class="flame-core"></div></div></div>
+            <div class="candle" data-index="4"><div class="candle-body"></div><div class="flame-wrap"><div class="flame"></div><div class="flame-core"></div></div></div>
+          </div>
+          <!-- Cake tiers -->
+          <div class="cake-tiers">
+            <div class="cake-tier tier-top"><div class="tier-deco"></div></div>
+            <div class="cake-tier tier-mid"><div class="tier-deco"></div></div>
+            <div class="cake-tier tier-bot"><div class="tier-deco"></div></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <p class="candle-hint" id="candleHint">Tap each candle to blow it out! 🕯️</p>
+
+      </div><!-- /page-content -->
+    </div><!-- /scroll-wrap -->
+
+    <!-- Celebration overlay – covers whole page after candles -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+
+      <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+      <!-- Teddy bears row -->
+      <div class="teddy-row" aria-hidden="true">
+        <span class="teddy">🧸</span>
+        <span class="teddy">🎀</span>
+        <span class="teddy">🧸</span>
+        <span class="teddy">🎂</span>
+        <span class="teddy">🧸</span>
+        <span class="teddy">🎀</span>
+        <span class="teddy">🧸</span>
+      </div>
+
+      <div class="birthday-banner">
+        <p class="banner-text">HAPPIEST BIRTHDAY,</p>
+        <p class="banner-text banner-name">HEMUUUU! ❤️</p>
+      </div>
+
+      <!-- Teddy bears row (bottom) -->
+      <div class="teddy-row" aria-hidden="true">
+        <span class="teddy">🧸</span>
+        <span class="teddy">🌸</span>
+        <span class="teddy">🧸</span>
+        <span class="teddy">💗</span>
+        <span class="teddy">🧸</span>
+        <span class="teddy">🌸</span>
+        <span class="teddy">🧸</span>
+      </div>
+
+      <p class="banner-sub">Made with lots of love, just for you</p>
+      <p class="banner-sign">– Nageena 🫂</p>
+
+      <p class="song-playing-note" id="songNote">🎵 Your birthday song is playing...</p>
+
+      <button class="btn-primary" id="goToCards">Discover Your Surprise →</button>
+    </div>
+
+  </section>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 2 – SIX MEMORY CARDS                                   -->
+  <!-- =========================================================== -->
+  <section id="page-cards" class="page">
+    <div class="scroll-wrap">
+      <div class="page-content">
+
+        <h2 class="section-title">Six Little Pieces of Our Friendship 💗</h2>
+        <p class="section-sub">Tap each card to discover something special ✨</p>
+
+        <div class="cards-grid" id="cardsGrid">
+
+          <!-- Card 1 -->
+          <div class="memory-card" data-card="0">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Anime girl holding a heart -->
+                  <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg" width="64" height="72">
+                    <!-- body -->
+                    <ellipse cx="40" cy="72" rx="18" ry="14" fill="#f9b8c8" opacity="0.6"/>
+                    <!-- dress -->
+                    <path d="M24 60 Q40 80 56 60 L52 50 Q40 60 28 50Z" fill="#e8688a"/>
+                    <!-- arms holding heart -->
+                    <path d="M28 52 Q18 56 20 62" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M52 52 Q62 56 60 62" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <!-- heart in hands -->
+                    <path d="M30 65 Q30 59 36 59 Q39 59 40 62 Q41 59 44 59 Q50 59 50 65 Q50 70 40 76 Q30 70 30 65Z" fill="#e8688a"/>
+                    <!-- head -->
+                    <circle cx="40" cy="34" r="14" fill="#f5c8a0"/>
+                    <!-- hair -->
+                    <path d="M26 30 Q28 16 40 14 Q52 16 54 30 Q50 20 40 20 Q30 20 26 30Z" fill="#3d2050"/>
+                    <path d="M26 30 Q22 38 26 44" stroke="#3d2050" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <path d="M54 30 Q58 38 54 44" stroke="#3d2050" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    <!-- eyes -->
+                    <ellipse cx="35" cy="35" rx="3" ry="3.5" fill="#3d2050"/>
+                    <ellipse cx="45" cy="35" rx="3" ry="3.5" fill="#3d2050"/>
+                    <circle cx="36" cy="34" r="1" fill="white"/>
+                    <circle cx="46" cy="34" r="1" fill="white"/>
+                    <!-- blush -->
+                    <ellipse cx="31" cy="40" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="49" cy="40" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <!-- smile -->
+                    <path d="M36 43 Q40 47 44 43" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <h3 class="card-title">Your Place Is Always Yours</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">❤️</div>
+                <p class="card-message">No matter how many people come into my life, your place will always be yours. You are my one and only best friend, Hemuuu — always and forever.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="memory-card" data-card="1">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Two anime girls side by side -->
+                  <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" width="70" height="70">
+                    <!-- girl 1 body -->
+                    <ellipse cx="28" cy="74" rx="13" ry="10" fill="#c9b8f0" opacity="0.5"/>
+                    <path d="M17 62 Q28 76 39 62 L36 54 Q28 62 20 54Z" fill="#9d7ec8"/>
+                    <!-- girl 1 head -->
+                    <circle cx="28" cy="36" r="12" fill="#f5c8a0"/>
+                    <path d="M16 32 Q18 20 28 18 Q38 20 40 32 Q37 23 28 23 Q19 23 16 32Z" fill="#e8688a"/>
+                    <ellipse cx="23" cy="37" rx="2.5" ry="3" fill="#3d2050"/>
+                    <ellipse cx="33" cy="37" rx="2.5" ry="3" fill="#3d2050"/>
+                    <circle cx="24" cy="36" r="0.9" fill="white"/>
+                    <circle cx="34" cy="36" r="0.9" fill="white"/>
+                    <ellipse cx="19" cy="42" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="37" cy="42" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <path d="M24 44 Q28 48 32 44" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- girl 2 body -->
+                    <ellipse cx="62" cy="74" rx="13" ry="10" fill="#f9b8c8" opacity="0.5"/>
+                    <path d="M51 62 Q62 76 73 62 L70 54 Q62 62 54 54Z" fill="#e8688a"/>
+                    <!-- girl 2 head -->
+                    <circle cx="62" cy="36" r="12" fill="#f5c8a0"/>
+                    <path d="M50 32 Q52 20 62 18 Q72 20 74 32 Q71 23 62 23 Q53 23 50 32Z" fill="#3d2050"/>
+                    <ellipse cx="57" cy="37" rx="2.5" ry="3" fill="#3d2050"/>
+                    <ellipse cx="67" cy="37" rx="2.5" ry="3" fill="#3d2050"/>
+                    <circle cx="58" cy="36" r="0.9" fill="white"/>
+                    <circle cx="68" cy="36" r="0.9" fill="white"/>
+                    <ellipse cx="53" cy="42" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="71" cy="42" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <path d="M58 44 Q62 48 66 44" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- joined hands -->
+                    <path d="M38 60 Q45 64 52 60" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <!-- infinity above -->
+                    <text x="40" y="12" text-anchor="middle" font-size="10" fill="#c9b8f0">♾️</text>
+                  </svg>
+                </div>
+                <h3 class="card-title">Best Friends Forever</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">♾️</div>
+                <p class="card-message">New places, new phases, new people — but I want one thing to stay the same through all of it. Us. Best friends, forever and always, Hemuuu! 🥹</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="memory-card" data-card="2">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Anime girl waving/missing -->
+                  <svg viewBox="0 0 80 95" xmlns="http://www.w3.org/2000/svg" width="60" height="72">
+                    <!-- body -->
+                    <ellipse cx="40" cy="76" rx="16" ry="12" fill="#ffd4b8" opacity="0.5"/>
+                    <path d="M26 63 Q40 78 54 63 L50 54 Q40 63 30 54Z" fill="#f5a06c"/>
+                    <!-- waving arm -->
+                    <path d="M54 56 Q68 48 70 40 Q72 36 68 34" stroke="#f5c8a0" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                    <!-- other arm -->
+                    <path d="M26 56 Q20 60 22 66" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <!-- head -->
+                    <circle cx="40" cy="36" r="14" fill="#f5c8a0"/>
+                    <!-- hair -->
+                    <path d="M26 28 Q28 14 40 12 Q52 14 54 28 Q50 18 40 18 Q30 18 26 28Z" fill="#c9b8f0"/>
+                    <path d="M54 32 Q58 42 54 50" stroke="#c9b8f0" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+                    <!-- eyes (teary) -->
+                    <ellipse cx="35" cy="36" rx="3" ry="3.5" fill="#3d2050"/>
+                    <ellipse cx="45" cy="36" rx="3" ry="3.5" fill="#3d2050"/>
+                    <circle cx="36" cy="35" r="1" fill="white"/>
+                    <circle cx="46" cy="35" r="1" fill="white"/>
+                    <!-- tear drops -->
+                    <path d="M34 41 Q33 45 34 47" stroke="#b8e4f9" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M46 41 Q47 45 46 47" stroke="#b8e4f9" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- blush -->
+                    <ellipse cx="31" cy="41" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="49" cy="41" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <!-- small mouth -->
+                    <path d="M37 46 Q40 44 43 46" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- miss you text bubble -->
+                    <ellipse cx="62" cy="20" rx="12" ry="8" fill="white" opacity="0.85"/>
+                    <text x="62" y="23" text-anchor="middle" font-size="6.5" fill="#e8688a" font-family="Arial">miss u!</text>
+                  </svg>
+                </div>
+                <h3 class="card-title">I Miss You So Much</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">🥺</div>
+                <p class="card-message">Almost four years and I still haven't given you that big hug. I miss sitting beside you, talking for hours, just being us. I really can't wait to see you again. 🫂</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="memory-card" data-card="3">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Two girls chatting with speech bubbles -->
+                  <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" width="68" height="68">
+                    <!-- speech bubble left -->
+                    <path d="M4 8 Q4 2 10 2 L38 2 Q44 2 44 8 L44 22 Q44 28 38 28 L18 28 L10 36 L14 28 L10 28 Q4 28 4 22Z" fill="white" opacity="0.9"/>
+                    <text x="24" y="12" text-anchor="middle" font-size="7" fill="#9d7ec8">haha yes!</text>
+                    <text x="24" y="22" text-anchor="middle" font-size="7" fill="#9d7ec8">omg same 😂</text>
+                    <!-- speech bubble right -->
+                    <path d="M48 8 Q48 2 54 2 L82 2 Q88 2 88 8 L88 22 Q88 28 82 28 L72 28 L76 36 L68 28 L54 28 Q48 28 48 22Z" fill="white" opacity="0.9"/>
+                    <text x="68" y="12" text-anchor="middle" font-size="7" fill="#e8688a">tell me</text>
+                    <text x="68" y="22" text-anchor="middle" font-size="7" fill="#e8688a">everything!</text>
+                    <!-- girl 1 -->
+                    <circle cx="24" cy="58" r="11" fill="#f5c8a0"/>
+                    <path d="M13 52 Q16 42 24 40 Q32 42 35 52 Q32 46 24 46 Q16 46 13 52Z" fill="#9d7ec8"/>
+                    <ellipse cx="20" cy="59" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="28" cy="59" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="16" cy="64" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="32" cy="64" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <path d="M20 66 Q24 70 28 66" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- girl 2 -->
+                    <circle cx="66" cy="58" r="11" fill="#f5c8a0"/>
+                    <path d="M55 52 Q58 42 66 40 Q74 42 77 52 Q74 46 66 46 Q58 46 55 52Z" fill="#e8688a"/>
+                    <path d="M55 54 Q52 60 54 66" stroke="#e8688a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="62" cy="59" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="70" cy="59" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="58" cy="64" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="74" cy="64" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <path d="M62 66 Q66 70 70 66" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- phone between them -->
+                    <rect x="38" y="70" width="14" height="20" rx="3" fill="#3d2050" opacity="0.7"/>
+                    <rect x="40" y="72" width="10" height="14" rx="1" fill="#b8e4f9" opacity="0.6"/>
+                  </svg>
+                </div>
+                <h3 class="card-title">Those EAMCET Days</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">💬</div>
+                <p class="card-message">Our EAMCET prep days — talking for hours, sharing everything, never getting tired of each other. Those were some of the most beautiful days. I wish we could go back. ❤️✨</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="memory-card" data-card="4">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Girl taking care of sick friend -->
+                  <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" width="68" height="68">
+                    <!-- bed/blanket -->
+                    <rect x="6" y="62" width="78" height="22" rx="8" fill="#c9b8f0" opacity="0.6"/>
+                    <rect x="6" y="58" width="78" height="12" rx="4" fill="#f9b8c8" opacity="0.5"/>
+                    <!-- sick girl lying -->
+                    <ellipse cx="36" cy="60" rx="13" ry="10" fill="#f5c8a0"/>
+                    <path d="M23 54 Q26 44 36 42 Q46 44 49 54 Q46 48 36 48 Q26 48 23 54Z" fill="#f5c842" opacity="0.9"/>
+                    <!-- sick eyes closed -->
+                    <path d="M30 60 Q33 58 36 60" stroke="#3d2050" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M36 60 Q39 58 42 60" stroke="#3d2050" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="27" cy="64" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="45" cy="64" rx="3.5" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <!-- thermometer -->
+                    <rect x="44" y="56" width="3" height="12" rx="1.5" fill="#e8688a" opacity="0.8"/>
+                    <!-- caring girl sitting -->
+                    <circle cx="68" cy="50" r="11" fill="#f5c8a0"/>
+                    <path d="M57 44 Q60 34 68 32 Q76 34 79 44 Q76 38 68 38 Q60 38 57 44Z" fill="#9d7ec8"/>
+                    <path d="M57 46 Q52 52 54 58" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <!-- caring arm reaching to sick girl -->
+                    <path d="M79 56 Q72 60 60 62" stroke="#f5c8a0" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="64" cy="51" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="72" cy="51" rx="2.3" ry="2.8" fill="#3d2050"/>
+                    <ellipse cx="60" cy="56" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="76" cy="56" rx="3" ry="2" fill="#f9b8c8" opacity="0.7"/>
+                    <path d="M64 58 Q68 62 72 58" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- heart -->
+                    <path d="M73 36 Q73 30 79 30 Q82 30 83 33 Q84 30 87 30 Q93 30 93 36 Q93 41 83 46 Q73 41 73 36Z" fill="#e8688a" opacity="0.9" transform="scale(0.7) translate(32,10)"/>
+                  </svg>
+                </div>
+                <h3 class="card-title">When You Stayed</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">🫂</div>
+                <p class="card-message">I told you to leave when I had a fever. But I woke up and you were still there, sleeping beside me. That one moment told me everything — you were truly my person. 🥺❤️</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="memory-card" data-card="5">
+            <div class="card-inner">
+              <div class="card-front">
+                <div class="card-anime">
+                  <!-- Girl thinking/dreaming with stars -->
+                  <svg viewBox="0 0 80 95" xmlns="http://www.w3.org/2000/svg" width="60" height="72">
+                    <!-- dream cloud with friend silhouette -->
+                    <ellipse cx="58" cy="22" rx="18" ry="12" fill="white" opacity="0.8"/>
+                    <ellipse cx="46" cy="26" rx="8" ry="6" fill="white" opacity="0.8"/>
+                    <ellipse cx="70" cy="27" rx="7" ry="5" fill="white" opacity="0.8"/>
+                    <!-- tiny friend in cloud -->
+                    <circle cx="58" cy="20" r="5" fill="#f9b8c8" opacity="0.9"/>
+                    <ellipse cx="58" cy="29" rx="4" ry="5" fill="#c9b8f0" opacity="0.9"/>
+                    <!-- thought dots -->
+                    <circle cx="46" cy="40" r="2" fill="white" opacity="0.6"/>
+                    <circle cx="42" cy="46" r="2.8" fill="white" opacity="0.6"/>
+                    <circle cx="39" cy="53" r="3.5" fill="white" opacity="0.5"/>
+                    <!-- body -->
+                    <ellipse cx="32" cy="80" rx="16" ry="11" fill="#ffd4b8" opacity="0.5"/>
+                    <path d="M18 68 Q32 82 46 68 L42 58 Q32 68 22 58Z" fill="#f5a06c"/>
+                    <!-- head looking up/side -->
+                    <circle cx="32" cy="46" r="14" fill="#f5c8a0"/>
+                    <!-- hair -->
+                    <path d="M18 40 Q20 26 32 24 Q44 26 46 40 Q42 30 32 30 Q22 30 18 40Z" fill="#3d2050"/>
+                    <!-- eyes looking up dreamily -->
+                    <path d="M27 44 Q30 40 33 44" stroke="#3d2050" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                    <path d="M37 44 Q40 40 43 44" stroke="#3d2050" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                    <!-- blush -->
+                    <ellipse cx="23" cy="49" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <ellipse cx="41" cy="49" rx="4" ry="2.5" fill="#f9b8c8" opacity="0.7"/>
+                    <!-- soft smile -->
+                    <path d="M28 52 Q32 56 36 52" stroke="#c0607a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <!-- stars -->
+                    <text x="8"  y="18" font-size="9" fill="#f5c842">✦</text>
+                    <text x="66" y="10" font-size="7" fill="#c9b8f0">✦</text>
+                    <text x="14" y="30" font-size="6" fill="#f9b8c8">✦</text>
+                  </svg>
+                </div>
+                <h3 class="card-title">Always In My Thoughts</h3>
+                <p class="card-tap-hint">tap to open ✨</p>
+              </div>
+              <div class="card-back">
+                <div class="card-back-icon">🌷</div>
+                <p class="card-message">Even on quiet days when we don't talk, you appear in my thoughts. Distance can never change how much you mean to me. You're always there — in my heart. 💗</p>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cards-grid -->
+
+        <p class="cards-footer">These are just six little things... I have a million more reasons! ❤️</p>
+        <button class="btn-primary" id="goToGallery">Our Memories Gallery →</button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 3 – MEMORIES GALLERY                                   -->
+  <!-- =========================================================== -->
+  <section id="page-gallery" class="page">
+    <div class="scroll-wrap">
+      <div class="page-content">
+
+        <h2 class="section-title">Little Moments, Big Memories 📸</h2>
+        <p class="section-sub">If I could collect all our memories and keep them in one place, this is how they would look. ❤️</p>
+
+        <div class="gallery-grid" id="galleryGrid">
+
+          <div class="gallery-item" data-index="0">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 1</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+              <!-- Replace placeholder with: <img src="photos/photo1.jpg" alt="caption" /> -->
+            </div>
+            <p class="photo-caption">The beginning of our beautiful story ❤️</p>
+          </div>
+
+          <div class="gallery-item" data-index="1">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 2</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+            </div>
+            <p class="photo-caption">From strangers to best friends 🥹</p>
+          </div>
+
+          <div class="gallery-item" data-index="2">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 3</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+            </div>
+            <p class="photo-caption">Those unforgettable Inter days</p>
+          </div>
+
+          <div class="gallery-item" data-index="3">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 4</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+            </div>
+            <p class="photo-caption">Our endless conversations and memories</p>
+          </div>
+
+          <div class="gallery-item" data-index="4">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 5</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+            </div>
+            <p class="photo-caption">Four years of friendship and counting... ♾️</p>
+          </div>
+
+          <div class="gallery-item" data-index="5">
+            <div class="photo-frame">
+              <div class="photo-placeholder">
+                <span class="photo-num">📸</span>
+                <span class="photo-label">Photo 6</span>
+                <span class="photo-hint">Add your photo here</span>
+              </div>
+            </div>
+            <p class="photo-caption">More memories to make together! ♾️</p>
+          </div>
+
+        </div><!-- /gallery-grid -->
+
+        <button class="btn-primary" id="goToLetter">Read a Note From Me 💌</button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <div class="lightbox-content">
+      <div class="lightbox-ph" id="lightboxPh"><span>📸</span><p id="lightboxPhCaption"></p></div>
+      <img id="lightboxImg" src="" alt="" style="display:none" />
+      <p class="lightbox-cap" id="lightboxCap"></p>
+    </div>
+  </div>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 4 – HEARTFELT LETTER                                   -->
+  <!-- =========================================================== -->
+  <section id="page-letter" class="page">
+    <div class="scroll-wrap">
+      <div class="page-content">
+
+        <h2 class="section-title">One Last Thing, Hemuuu... 💌</h2>
+        <p class="section-sub">I have something for you. Something I wanted to tell you from the bottom of my heart.</p>
+
+        <!-- Stage 1: envelope -->
+        <div id="stageEnvelope">
+          <div class="big-envelope" id="bigEnvelope">
+            <div class="big-env-flap" id="bigEnvFlap"></div>
+            <div class="big-env-body">
+              <div class="big-env-seal">💌</div>
+            </div>
+          </div>
+          <button class="btn-primary" id="openLetterBtn">Open My Letter 💌</button>
+        </div>
+
+        <!-- Stage 2: pre-letter message -->
+        <div id="stagePreLetter" class="glass-card pre-letter" style="display:none">
+          <p class="pre-letter-text">
+            Hey Hemuuu... 🥺❤️<br><br>
+            Please read this slowly and carefully.<br><br>
+            Every single word written here comes straight from my heart. These are not just words, but little pieces of our friendship, our memories and all the love I have for you.<br><br>
+            I may not express everything properly when we talk, but today I want you to know how much you mean to me.<br><br>
+            So take a little time, open your heart and read what your best friend wants to tell you. ❤️
+          </p>
+          <button class="btn-primary" id="readLetterBtn">Read My Heartfelt Letter →</button>
+        </div>
+
+        <!-- Stage 3: full letter -->
+        <div id="stageFullLetter" class="glass-card full-letter" style="display:none">
+          <h3 class="letter-heading">A Letter From Your Nageena 💌</h3>
+          <div class="letter-body">
+
+            <!-- ========== LETTER START — do not edit ========== -->
+            <p><strong>Happiest Birthday, my Hemuuuu! ❤️🫂🎂</strong></p>
+            <p>Hemuuu, where should I even start? When I think about our friendship, I always feel so happy remembering how everything started. It's actually so special to think about how a person whom I barely knew during our first year became such an important part of my life. 🥹💗</p>
+            <p>I still remember seeing you for the first time in our Inter first-year online classes on Zoom. You used to ask doubts in the classes, and I remember thinking, "OMG, she's asking so many questions!" I had already noticed you as one of the toppers in our online classes. Then, when I came to college, I remember seeing your name on the board after our JEE Main test, where you had secured one of the top positions. I hadn't even seen you during the first week, but I had already seen your name on that board. My roommate, who was your classmate, also used to tell me about you and how you were a topper. I think I actually saw you around the third week.</p>
+            <p>But honestly, during my first year of Inter, I didn't pay much attention to you. You used to come and talk to my parents whenever they visited, while I barely used to talk to you. My parents actually knew you better than I did at that time. Little did I know that one day you would become someone so close to my heart. ❤️🧿</p>
+            <p>And then came our second year. That's when we actually started becoming close. Hemuuu, I can never forget that one incident when I fell sick. You came to my room, and I told you that I had a fever. I even asked you to leave my room. You went away, but when I woke up, I saw you sleeping beside me. 🥺❤️</p>
+            <p>Actually, that was a time when I felt like not many people cared about me, but you cared so much. You always made me feel that someone was there for me. I will never forget the way you cared for me during those days. 🫂💗</p>
+            <p>I don't know whether you remember that moment the same way I do, but for me, it was something very special. At that moment, I felt that you were a true friend. Someone who genuinely cared about me. I felt so loved and cared for without you even having to say anything. That was the moment I decided that I never wanted to lose you at any cost. I don't think you will ever understand how much that little moment meant to me. 🥹❤️</p>
+            <p>And after that, we became so close. Our EAMCET preparation days at home, those endless conversations, chatting for hours and hours, sharing every little thing and never getting tired of talking to each other. I miss those days so much, Hemuuu. ❤️✨</p>
+            <p>I seriously don't know how time passed so quickly. We were once those two girls who could talk for hours without even realising how much time had passed. And suddenly, we reached B.Tech. A completely new life, new responsibilities, new friends and so many things to take care of. Now we don't get enough time to talk like we used to during our EAMCET preparation. Sometimes we don't even get time to have a proper conversation. But Hemuuu, please remember that even though our conversations have become less, my love for you has never become less. 🥺💕</p>
+            <p>Every day, in some way or the other, I remember you. Whenever I feel low, your words come to my mind. The things you said to me, the way you encouraged me and the way you cared for me always stay with me. Sometimes, even when you are not around, your words make me feel better. That's how special you are to me. ❤️🫂</p>
+            <p>You are my one and only true best friend, Hemuuu. Whether you are beside me or far away, whether we talk every day or don't talk for days, you will always be my bestest friend. Your place in my life is something I can never give to anyone else. No matter how many people I meet or how many friends I make, nobody can take your place. It's always going to be yours. ❤️🧿</p>
+            <p>And Hemuuu, I really want to say sorry for all the times I have hurt you during B.Tech. I know how many times I told you that I would call you back or text you, but I never did. I know it's my mistake. Every time, I tell you that I won't repeat it again, but somehow I end up doing the same thing and hurting you. I am really, really sorry for that. You never deserved to feel that I was ignoring you or that I didn't have time for you. 🥺</p>
+            <p>But please, one thing I want to tell you is that even if I don't call or text you sometimes, please don't leave me. Please don't think that I don't care about you just because I don't call or reply. It's never like that, Hemuuu. Calls and texts are different, but you are always there in my thoughts. I might not express it every day, but I always think about you. I don't want to lose you over these little things. I want you to understand me, just like I always want to understand you. I promise that no matter how busy life gets, you will always have a special place in my heart. 🥹❤️🫂</p>
+            <p>And you know what? Whenever my B.Tech friends talk about their best friends or introduce their best friends, your name is always the first one that comes to my mind. If someone asks me who my best friend is, I will always say your name first. Even if you are not physically with me, you are still the first person I think of when someone asks about my best friend. That's how much you mean to me. 💗</p>
+            <p>And now, coming to our birthday story! ❤️🎂</p>
+            <p>I still remember how I completely forgot your birthday during my first year of B.Tech and accidentally wished you on November 11. I really can't believe I did that! Then, during my second year, I tried so hard to remember your birthday. I told all my friends to remind me, even asked my parents to set a reminder, and finally managed to wish you at exactly 12:00 AM. And now, here I am in my fourth year, remembering your birthday all by myself! Nobody helped me, nobody reminded me, and I'm wishing you at exactly 12:00 AM. I think finally I have become a little responsible when it comes to your birthday! ❤️🥹</p>
+            <p>But honestly, I really wanted to remember your birthday on my own this time and wish you exactly at 12. And I'm so happy that I did. You deserve to be remembered, celebrated and loved, not just on your birthday but every single day. 🌷💗</p>
+            <p>Hemuuu, I don't know what life has planned for both of us. We may get busy with our careers, move to different places, meet new people and enter different phases of life. But one thing I really wish is that we never become distant in our hearts. I want us to stay like this forever. I want to hear about your happiness, your problems, your achievements, your silly stories and every little thing happening in your life. Even after years, I want us to sit together and talk about our Inter days and remember how everything started. 🥹❤️</p>
+            <p>Thank you for coming into my life. Thank you for caring for me when I needed someone the most. Thank you for all those hours of conversations, for every little thing you did for me and for making so many beautiful memories with me. You might think some of those things are very small, but I carry them in my heart. 💗🫂</p>
+            <p><strong>You are not just a friend I made during Inter, Hemuuu. You are someone I want to keep in my life forever.</strong> ❤️♾️</p>
+            <p>I wish you all the happiness in the world. May all your dreams come true, may you achieve everything you have ever wished for, and may you always have a reason to smile. You deserve so much love, happiness and success. 🌸🧿💕</p>
+            <p>And lastly, please never forget that no matter how many days we go without talking, no matter how busy we become and no matter where life takes us, you will always be my favourite person and my one and only best friend. 🥹❤️</p>
+            <p><strong>I love you so much, Hemuuuu! More than I can ever explain in words. 🥹❤️🫂</strong></p>
+            <p><strong>Happiest Birthday once again, my forever best friend! 🎂💗✨</strong></p>
+            <p class="letter-sign">Lots and lots of love,<br/>Your Nageena! ❤️🫂</p>
+            <!-- ========== LETTER END ========== -->
+
+          </div>
+        </div>
+
+        <button class="btn-primary" id="goToPromise" style="display:none; margin-top:1.8rem;">One Final Surprise ♾️</button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 5 – FOREVER PROMISE                                    -->
+  <!-- =========================================================== -->
+  <section id="page-promise" class="page">
+    <div class="scroll-wrap">
+      <div class="page-content promise-content">
+
+        <div class="promise-illustration">
+          <span class="promise-heart">❤️</span>
+          <span class="promise-inf">♾️</span>
+          <span class="promise-heart">❤️</span>
+        </div>
+
+        <h2 class="section-title">One Promise, Hemuuu... ♾️</h2>
+
+        <div class="promise-lines" id="promiseLines">
+          <p class="promise-line" data-delay="300">Even if life gets busy...</p>
+          <p class="promise-line" data-delay="1100">Even if we live miles apart...</p>
+          <p class="promise-line" data-delay="1900">Even if we don't talk every day...</p>
+          <p class="promise-line" data-delay="2700">One thing will always remain the same.</p>
+        </div>
+
+        <div class="final-declaration" id="finalDeclaration">
+          <p class="final-text">YOU WILL ALWAYS BE<br/>MY BEST FRIEND. ❤️</p>
+        </div>
+
+        <div class="final-sign" id="finalSign">
+          <p class="final-sign-top">Lots of love, hugs and endless memories waiting for us!</p>
+          <p class="sign-name">Forever your best friend,<br/>Nageena 🫂</p>
+        </div>
+
+        <!-- Birthday Wishes Section -->
+        <div class="bday-wishes" id="bdayWishes">
+          <div class="wishes-deco" aria-hidden="true">🎂 🌸 🎀 🌸 🎂</div>
+          <h3 class="wishes-heading">Happy Happy Birthday, Hemuuu! 🎉❤️</h3>
+          <div class="wishes-lines">
+            <p>🌟 May every single one of your dreams come true this year.</p>
+            <p>🌸 May happiness find you in every corner of your life.</p>
+            <p>✨ May success walk beside you in everything you do.</p>
+            <p>💗 May you always be surrounded by people who love you deeply.</p>
+            <p>🌙 May this year bring you more laughter, more joy and more beautiful memories.</p>
+            <p>🧿 May God always keep you safe, healthy and blessed.</p>
+            <p>🌺 You deserve every good thing this world has to offer — and so much more.</p>
+          </div>
+          <p class="wishes-closing">Here's to you, Hemuuu — the most special person. 🥂💕</p>
+          <p class="wishes-sign">With all my heart,<br/>Your Nageena ❤️🫂</p>
+        </div>
+
+        <button class="btn-primary btn-replay" id="replayBtn">Replay Our Little Story ❤️</button>
+
+        <canvas id="finalConfetti" aria-hidden="true"></canvas>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation dots -->
+  <nav class="page-nav" id="pageNav">
+    <button class="nav-dot active" data-page="page-cake"    title="Cake"></button>
+    <button class="nav-dot"        data-page="page-cards"   title="Cards"></button>
+    <button class="nav-dot"        data-page="page-gallery" title="Gallery"></button>
+    <button class="nav-dot"        data-page="page-letter"  title="Letter"></button>
+    <button class="nav-dot"        data-page="page-promise" title="Promise"></button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
